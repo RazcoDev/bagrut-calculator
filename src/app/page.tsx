@@ -1,101 +1,179 @@
-import Image from "next/image";
+"use client"
 
-export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+import {useState} from 'react'
+import {Button} from "@/components/ui/button"
+import {Input} from "@/components/ui/input"
+import {Label} from "@/components/ui/label"
+import {Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter} from "@/components/ui/card"
+import {Select, SelectContent, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select"
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
-  );
+const SUBJECTS: { [key: string]: string } = {
+    bible: "תנ״ך",
+    history: "היסטוריה",
+    civics: "אזרחות",
+    literature: "ספרות",
+    english: "אנגלית",
+    math: "מתמטיקה",
+    hebrew: "לשון",
+    physics: "פיזיקה",
+    chemistry: "כימיה",
+    biology: "ביולוגיה",
+    computer: "מדעי המחשב",
+    arabic: "ערבית",
+    french: "צרפתית",
+    talmud: "תלמוד",
+    tushba: "תושב״ע",
+    israel: "מחשבת ישראל",
+
+
 }
+
+
+const MANDATORY_SUBJECTS = [SUBJECTS.bible, SUBJECTS.history,SUBJECTS.arabic, SUBJECTS.civics, SUBJECTS.literature, SUBJECTS.english, SUBJECTS.math, SUBJECTS.hebrew, SUBJECTS.israel, ]
+const EXTRA_BONUS_SUBJECTS = [SUBJECTS.bible, SUBJECTS.israel, SUBJECTS.tushba, SUBJECTS.talmud, SUBJECTS.history, SUBJECTS.civics, SUBJECTS.literature, SUBJECTS.chemistry, SUBJECTS.physics, SUBJECTS.math, SUBJECTS.biology, SUBJECTS.computer, SUBJECTS.english]
+
+function calculateBonus(subject: string, grade: number, units: number): number {
+    if (units < 4) return 0;
+    if (EXTRA_BONUS_SUBJECTS.includes(subject)) {
+        if (units === 5) {
+            if (subject === SUBJECTS.math) return 35;
+            return 25
+        }
+        if (units === 4) {
+            if (subject === SUBJECTS.math) return 15;
+            return 12.5
+        }
+    }
+
+    return  units === 4 ? 10 : 20;
+}
+
+type Subject = {
+    name: string;
+    grade: string;
+    units: string;
+    bonusGrade: string;
+}
+
+export default function BagrutCalculator() {
+    const [mandatorySubjects, setMandatorySubjects] = useState<Subject[]>(
+        MANDATORY_SUBJECTS.map(subject => ({name: subject, grade: '', units: '', bonusGrade: ''}))
+    )
+    const [additionalSubjects, setAdditionalSubjects] = useState<Subject[]>([])
+    const [average, setAverage] = useState(0)
+
+    const addSubject = () => {
+        setAdditionalSubjects([...additionalSubjects, {name: '', grade: '', units: '', bonusGrade: ''}])
+    }
+
+    const updateSubject = (index: number, field: string, value: string, isMandatory: boolean) => {
+        const updateSubjects = (subjects: Subject[]) => {
+            const newSubjects = [...subjects]
+            newSubjects[index] = {...newSubjects[index], [field]: value}
+
+            if (field === 'grade' || field === 'units') {
+                const grade = Number(newSubjects[index].grade)
+                const units = Number(newSubjects[index].units)
+                if (grade && units) {
+                    const bonus = calculateBonus( newSubjects[index].name, grade, units)
+                    const bonusGrade =grade + bonus
+                    newSubjects[index].bonusGrade = bonusGrade.toFixed(1)
+                }
+            }
+
+            return newSubjects
+        }
+
+        if (isMandatory) {
+            setMandatorySubjects(updateSubjects(mandatorySubjects))
+        } else {
+            setAdditionalSubjects(updateSubjects(additionalSubjects))
+        }
+    }
+
+    const calculateAverage = () => {
+        const allSubjects = [...mandatorySubjects, ...additionalSubjects]
+        const totalPoints = allSubjects.reduce((sum, subject) => {
+            return sum + (Number(subject.bonusGrade) * Number(subject.units))
+        }, 0)
+        const totalUnits = allSubjects.reduce((sum, subject) => sum + Number(subject.units), 0)
+        setAverage(totalPoints / totalUnits)
+    }
+
+    const renderSubjectInputs = (subject: Subject, index: number, isMandatory: boolean) => (
+        <div key={index} className="flex space-x-4 mb-4">
+            <div className="flex-1">
+                <Label htmlFor={`subject-${index}`}>מקצוע</Label>
+                {isMandatory ? (
+                    <Input id={`subject-${index}`} value={subject.name} readOnly/>
+                ) : (
+                    <Select onValueChange={(value) => updateSubject(index, 'name', value, isMandatory)}>
+                        <SelectTrigger>
+                            <SelectValue placeholder="בחר מקצוע"/>
+                        </SelectTrigger>
+                        <SelectContent>
+                            {Object.entries(SUBJECTS).map(([key, value]) => (
+                                <SelectItem key={key} value={value}>
+                                    {value}
+                                </SelectItem>
+                            ))}
+
+                        </SelectContent>
+                    </Select>
+                )}
+            </div>
+            <div className="w-20">
+                <Label htmlFor={`grade-${index}`}>ציון</Label>
+                <Input
+                    id={`grade-${index}`}
+                    value={subject.grade}
+                    onChange={(e) => updateSubject(index, 'grade', e.target.value, isMandatory)}
+                    placeholder="ציון"
+                    type="number"
+                />
+            </div>
+            <div className="w-20">
+                <Label htmlFor={`units-${index}`}>יחידות</Label>
+                <Input
+                    id={`units-${index}`}
+                    value={subject.units}
+                    onChange={(e) => updateSubject(index, 'units', e.target.value, isMandatory)}
+                    placeholder="יחידות"
+                    type="number"
+                />
+            </div>
+            <div className="w-24">
+                <Label htmlFor={`bonus-grade-${index}`}>ציון עם בונוס</Label>
+                <Input
+                    id={`bonus-grade-${index}`}
+                    value={subject.bonusGrade}
+                    readOnly
+                    placeholder="ציון עם בונוס"
+                />
+            </div>
+        </div>
+    )
+
+    return (
+        <Card className="w-full max-w-2xl mx-auto">
+            <CardHeader>
+                <CardTitle>מחשבון בגרויות</CardTitle>
+                <CardDescription>הזן את הציונים והיחידות לכל מקצוע</CardDescription>
+            </CardHeader>
+            <CardContent>
+                <h3 className="text-lg font-semibold mb-2">מקצועות חובה</h3>
+                {mandatorySubjects.map((subject, index) => renderSubjectInputs(subject, index, true))}
+
+                <h3 className="text-lg font-semibold mt-6 mb-2">מקצועות נוספים</h3>
+                {additionalSubjects.map((subject, index) => renderSubjectInputs(subject, index, false))}
+
+                <Button onClick={addSubject} className="mt-2">הוסף מקצוע</Button>
+            </CardContent>
+            <CardFooter className="flex justify-between">
+                <Button onClick={calculateAverage}>חשב ממוצע</Button>
+                <div>ממוצע: {average.toFixed(2)}</div>
+            </CardFooter>
+        </Card>
+    )
+}
+
