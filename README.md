@@ -1,6 +1,6 @@
 # Elevate
 
-[![](https://raw.githubusercontent.com/RazcoDev/bagrut-calculator/main/assets/home.mp4)](home video)
+![Demo](https://github.com/RazcoDev/elevate/blob/main/assets/home.gif)
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
