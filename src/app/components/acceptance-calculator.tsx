@@ -10,12 +10,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import studyData from "@/data/data.json";
 
 // This would typically be fetched from an API or loaded dynamically
-interface Study {
-    studyType: string;
-    avgBagrut: string;
-    avgPshy: string;
-}
-
 
 function calculateAcceptanceChance(avgBagrut: number, avgPshy: number, studyType: string): number {
     const study = studyData.find(s => s.studyType === studyType)
