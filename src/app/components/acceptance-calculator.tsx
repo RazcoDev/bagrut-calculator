@@ -7,12 +7,16 @@ import { Label } from "@/components/ui/label"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
+import studyData from "@/data/data.json";
+
 // This would typically be fetched from an API or loaded dynamically
-const studyData = [
-    { studyType: "הנדסת מחשבים", avgBagrut: "95", avgPshy: "650" },
-    { studyType: "רפואה", avgBagrut: "98", avgPshy: "725" },
-    // Add more study types as needed
-]
+interface Study {
+    studyType: string;
+    avgBagrut: string;
+    avgPshy: string;
+}
+
+const typedStudyData: Study[] = studyData;
 
 function calculateAcceptanceChance(avgBagrut: number, avgPshy: number, studyType: string): number {
     const study = studyData.find(s => s.studyType === studyType)
