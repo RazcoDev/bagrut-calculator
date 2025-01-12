@@ -16,7 +16,6 @@ interface Study {
     avgPshy: string;
 }
 
-const typedStudyData: Study[] = studyData;
 
 function calculateAcceptanceChance(avgBagrut: number, avgPshy: number, studyType: string): number {
     const study = studyData.find(s => s.studyType === studyType)

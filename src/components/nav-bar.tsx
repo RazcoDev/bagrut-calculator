@@ -3,7 +3,6 @@
 import * as React from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ThemeToggle } from "./theme-toggle"
 import { useTheme } from "next-themes"
 import { useEffect, useState } from "react"
 import { Sun, Moon } from 'lucide-react'
