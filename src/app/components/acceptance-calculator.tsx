@@ -99,7 +99,7 @@ export default function AcceptanceCalculator() {
                             חשב סיכויי קבלה
                         </Button>
                         {acceptanceChance !== null && (
-                            <div className="text-white text-lg">
+                            <div className="dark:text-white text text-lg">
                                 סיכויי הקבלה שלך: {acceptanceChance}%
                             </div>
                         )}
