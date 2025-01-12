@@ -24,8 +24,9 @@ export function NavBar() {
                     </div>
 
                     {/* Update navigation links */}
-                    <div className="hidden md:flex md:items-center md:space-x-8">
+                    <div className="hidden md:flex md:items-center rtl:space-x-reverse md:space-x-8">
                         {[
+                            ["בית", "/"],
                             ["בגרויות", "/bagrut"],
                             ["סיכוי קבלה", "/acceptance"],
                         ].map(([name, href]) => (

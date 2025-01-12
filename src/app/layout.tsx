@@ -15,7 +15,7 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     return (
-        <html lang="en" className="dark">
+        <html dir="rtl" lang="en" className="dark">
         <head>
             <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap"
                   rel="stylesheet"/>

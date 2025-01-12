@@ -112,42 +112,9 @@ export default function BagrutCalculator() {
     }, [mandatorySubjects, additionalSubjects, calculateAverage])
 
     const renderSubjectInputs = (subject: Subject, index: number, isMandatory: boolean) => (
+
         <div key={index} className="flex space-x-2 mb-2 direction-right">
-            <div className="w-28">
-                <Label htmlFor={`bonus-grade-${index}`} className="text-gray-300">ציון עם בונוס</Label>
-                <Input
-                    id={`bonus-grade-${index}`}
-                    value={subject.bonusGrade}
-                    readOnly
-                    placeholder="ציון עם בונוס"
-                    className="text-right bg-gray-800 text-white border-gray-700"
-                />
-            </div>
-            <div className="w-24">
-                <Label htmlFor={`units-${index}`} className="text-gray-300">יחידות</Label>
-                <Input
-                    id={`units-${index}`}
-                    value={subject.units}
-                    onChange={(e) => updateSubject(index, 'units', e.target.value, isMandatory)}
-                    placeholder="יחידות"
-                    type="number"
-                    className="bg-gray-800 text-white border-gray-700"
-                />
-            </div>
-            <div className="w-24">
-                <Label htmlFor={`grade-${index}`} className="text-gray-300">ציון</Label>
-                <Input
-                    id={`grade-${index}`}
-                    value={subject.grade}
-                    onChange={(e) => updateSubject(index, 'grade', e.target.value, isMandatory)}
-                    placeholder="ציון"
-                    type="number"
-                    className="bg-gray-800 text-white border-gray-700"
-                />
-            </div>
-
-
-            <div className="flex-1">
+            <div className="flex-1 rtl:ml-2">
                 <Label htmlFor={`subject-${index}`} className="text-gray-300">מקצוע</Label>
                 {isMandatory ? (
                     <Input id={`subject-${index}`} value={subject.name} readOnly className="text-right bg-gray-800 text-white border-gray-700"/>
@@ -166,6 +133,41 @@ export default function BagrutCalculator() {
                     </Select>
                 )}
             </div>
+
+            <div className="w-24 ">
+                <Label htmlFor={`grade-${index}`} className="text-gray-300">ציון</Label>
+                <Input
+                    id={`grade-${index}`}
+                    value={subject.grade}
+                    onChange={(e) => updateSubject(index, 'grade', e.target.value, isMandatory)}
+                    placeholder="ציון"
+                    type="number"
+                    className="bg-gray-800 text-white border-gray-700"
+                />
+            </div>
+            <div className="w-24">
+                <Label htmlFor={`units-${index}`} className="text-gray-300">יחידות</Label>
+                <Input
+                    id={`units-${index}`}
+                    value={subject.units}
+                    onChange={(e) => updateSubject(index, 'units', e.target.value, isMandatory)}
+                    placeholder="יחידות"
+                    type="number"
+                    className="bg-gray-800 text-white border-gray-700"
+                />
+            </div>
+
+            <div className="w-28">
+                <Label htmlFor={`bonus-grade-${index}`} className="text-gray-300">ציון עם בונוס</Label>
+                <Input
+                    id={`bonus-grade-${index}`}
+                    value={subject.bonusGrade}
+                    readOnly
+                    placeholder="ציון עם בונוס"
+                    className="text-right bg-gray-800 text-white border-gray-700"
+                />
+            </div>
+
         </div>
     )
 

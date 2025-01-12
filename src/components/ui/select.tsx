@@ -10,16 +10,7 @@ const Select = SelectPrimitive.Root
 
 const SelectGroup = SelectPrimitive.Group
 
-const SelectValue = React.forwardRef<
-    React.ElementRef<typeof SelectPrimitive.Value>,
-    React.ComponentPropsWithoutRef<typeof SelectPrimitive.Value>
->(({ className, ...props }, ref) => (
-    <SelectPrimitive.Value
-        ref={ref}
-        className={cn("flex items-center gap-1", className)}
-        {...props}
-    />
-))
+const SelectValue = SelectPrimitive.Value
 
 const SelectTrigger = React.forwardRef<
   React.ElementRef<typeof SelectPrimitive.Trigger>,
@@ -33,10 +24,10 @@ const SelectTrigger = React.forwardRef<
     )}
     {...props}
   >
-    {children}
     <SelectPrimitive.Icon asChild>
       <ChevronDown className="h-4 w-4 opacity-50" />
     </SelectPrimitive.Icon>
+    {children}
   </SelectPrimitive.Trigger>
 ))
 SelectTrigger.displayName = SelectPrimitive.Trigger.displayName
@@ -48,7 +39,7 @@ const SelectScrollUpButton = React.forwardRef<
   <SelectPrimitive.ScrollUpButton
     ref={ref}
     className={cn(
-      "flex cursor-default items-center justify-center py-1",
+      "text-right flex cursor-default items-center justify-center py-1",
       className
     )}
     {...props}
@@ -127,17 +118,18 @@ const SelectItem = React.forwardRef<
   <SelectPrimitive.Item
     ref={ref}
     className={cn(
-      "relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-2 pr-8 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "relative flex h-8 w-full justify-end cursor-default select-none rounded-sm py-1.5 pl-4 pr-4 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       className
     )}
     {...props}
   >
-    <span className="absolute right-2 flex h-3.5 w-3.5 items-center justify-center">
+
+    <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+    <span className="flex h-3.5 w-3.5 pl-1">
       <SelectPrimitive.ItemIndicator>
         <Check className="h-4 w-4" />
       </SelectPrimitive.ItemIndicator>
     </span>
-    <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
   </SelectPrimitive.Item>
 ))
 SelectItem.displayName = SelectPrimitive.Item.displayName
