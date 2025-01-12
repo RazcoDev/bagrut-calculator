@@ -164,7 +164,7 @@ export default function BagrutCalculator() {
     )
 
     return (
-        <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white font-sans" style={{ fontFamily: "'Heebo', sans-serif" }}>
+        <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white font-sans pb-6" style={{ fontFamily: "'Heebo', sans-serif" }}>
             <main className="pt-24 px-4">
                 <Card className="w-full max-w-2xl mx-auto border-gray-200 dark:border-gray-800 bg-gray-100 dark:bg-gray-900/50 backdrop-blur-xl">
                     <CardHeader>

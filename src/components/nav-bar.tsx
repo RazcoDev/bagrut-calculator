@@ -4,13 +4,23 @@ import * as React from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "./theme-toggle"
+import { useTheme } from "next-themes"
+import { useEffect, useState } from "react"
+import { Sun, Moon } from 'lucide-react'
 
 export function NavBar() {
+    const { theme, setTheme } = useTheme()
+    const [mounted, setMounted] = useState(false)
+
+    useEffect(() => {
+        setMounted(true)
+    }, [])
+
     return (
-        <div className="fixed top-0 z-50 w-full">
+        <div className="fixed top-0 z-50 w-full" style={{ fontFamily: "'Heebo', sans-serif" }}>
             <div className="relative">
                 <div
-                    className="absolute inset-0 bg-black/70 backdrop-blur-xl border-b border-gray-800"
+                    className="absolute inset-0 bg-white/70 dark:bg-black/70 backdrop-blur-xl border-b border-gray-200 dark:border-gray-800"
                     aria-hidden="true"
                 />
                 <nav className="relative mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -18,7 +28,7 @@ export function NavBar() {
                     <div className="flex shrink-0 items-center">
                         <Link
                             href="/"
-                            className="flex items-center gap-2 text-white"
+                            className="flex items-center gap-2 text-gray-900 dark:text-white"
                         >
                             <span className="text-lg font-semibold">Elevate</span>
                         </Link>
@@ -26,6 +36,9 @@ export function NavBar() {
 
                     {/* Update navigation links */}
                     <div className="hidden md:flex md:items-center rtl:space-x-reverse md:space-x-8">
+
+                        {/* Theme toggle */}
+
                         {[
                             ["בית", "/"],
                             ["בגרויות", "/bagrut"],
@@ -34,22 +47,36 @@ export function NavBar() {
                             <Link
                                 key={name}
                                 href={href}
-                                className="text-sm text-gray-300 transition-colors hover:text-white"
+                                className="text-sm text-gray-600 dark:text-gray-300 transition-colors hover:text-gray-900 dark:hover:text-white"
                             >
                                 {name}
                             </Link>
                         ))}
-                    </div>
 
-                    {/* Theme toggle */}
-                    <ThemeToggle />
+                        <div className="">
+                            {mounted && (
+                                <Button
+                                    variant="outline"
+                                    size="icon"
+                                    onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                                >
+                                    {theme === "dark" ? (
+                                        <Sun className="h-[1.2rem] w-[1.2rem]" />
+                                    ) : (
+                                        <Moon className="h-[1.2rem] w-[1.2rem]" />
+                                    )}
+                                    <span className="sr-only">Toggle theme</span>
+                                </Button>
+                            )}
+                        </div>
+                    </div>
 
                     {/* LinkedIn and Mail buttons */}
                     <div className="flex items-center space-x-2">
                         <Button
                             variant="ghost"
                             size="sm"
-                            className="text-gray-300 hover:text-white"
+                            className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
                             asChild
                         >
                             <Link href="https://www.linkedin.com/in/raz-cohen" target="_blank" rel="noopener noreferrer">
@@ -61,7 +88,7 @@ export function NavBar() {
                         <Button
                             variant="ghost"
                             size="sm"
-                            className="text-gray-300 hover:text-white"
+                            className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
                             asChild
                         >
                             <Link href="mailto:raz@getclaimify.io">
@@ -71,7 +98,9 @@ export function NavBar() {
                             </Link>
                         </Button>
                     </div>
+
                 </nav>
+
             </div>
         </div>
     )

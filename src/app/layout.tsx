@@ -1,7 +1,7 @@
-import {NavBar} from '../components/nav-bar'
 import './globals.css'
 import { Inter } from 'next/font/google'
 import { ThemeProvider } from "@/components/theme-provider"
+import {NavBar} from "@/components/nav-bar";
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,7 +16,7 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     return (
-        <html dir="rtl" lang="en" className="dark">
+        <html lang="en" dir="rtl" suppressHydrationWarning>
         <head>
             <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap" rel="stylesheet" />
         </head>
