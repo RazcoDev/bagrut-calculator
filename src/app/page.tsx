@@ -7,18 +7,16 @@ export default function HomePage() {
     return (
         <div className="min-h-screen bg-black text-white text-center font-sans" style={{ fontFamily: "'Heebo', sans-serif" }}>
             <main className="container mx-auto px-4 py-24">
-                <h1 className="text-4xl font-bold mb-8">ברוך הבא ל-Elevate</h1>
-                <div className="grid ">
+                <h1 className="text-4xl font-bold mb-8">Elevate</h1>
 
 
                     <video autoPlay loop muted
-                           width="640" className="justify-self-center rounded-md" >
+                           width="640" className="justify-self-center rounded-xl mb-10" >
                     <source
                         src="https://raw.githubusercontent.com/RazcoDev/bagrut-calculator/main/assets/home.mp4"
                         type="video/mp4"
                     />
                 </video>
-                </div>
                 <div className="grid md:grid-cols-2 gap-8 mb-16 ">
                     <Card className="bg-gray-900 border-gray-800 text-center">
                         <CardHeader>
@@ -27,7 +25,7 @@ export default function HomePage() {
                         </CardHeader>
                         <CardContent>
                             <p className="mb-4 text-gray-300">חשבו את ממוצע הבגרויות שלכן/ם - מלאו את ציון מקצועות החובה והבחירה. </p>
-                            <Button asChild className="text-white bg-blue-600 hover:bg-blue-700">
+                            <Button asChild className="text-white bg-green-800 hover:bg-green-900">
                                 <Link href="/bagrut">מחשבון ממוצע</Link>
                             </Button>
                         </CardContent>
@@ -40,7 +38,7 @@ export default function HomePage() {
                         </CardHeader>
                         <CardContent>
                             <p className="mb-4 text-gray-300">מאוד פשוט - מלא את ממוצע הבגרויות וציון הפסיכומטרי שלך !</p>
-                            <Button asChild className="text-white bg-blue-600 hover:bg-blue-700">
+                            <Button asChild className="text-white bg-green-800 hover:bg-green-900">
                                 <Link href="/acceptance">מחשבון קבלה</Link>
                             </Button>
                         </CardContent>
