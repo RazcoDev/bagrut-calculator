@@ -182,7 +182,7 @@ export default function BagrutCalculator() {
                         <h3 className="text-lg font-semibold mb-2 text-white">מקצועות חובה</h3>
                         {mandatorySubjects.map((subject, index) => renderSubjectInputs(subject, index, true))}
 
-                        <h3 className="text-lg font-semibold mt-6 mb-2 text-white">מקצועות נוספים</h3>
+                        <h3 className="text-lg font-semibold mt-6 mb-2 text-white">מקצועות בחירה</h3>
                         {additionalSubjects.map((subject, index) => renderSubjectInputs(subject, index, false))}
 
                         <Button onClick={addSubject} className="mt-2 bg-gray-800 hover:bg-gray-700 text-white">הוסף מקצוע</Button>
