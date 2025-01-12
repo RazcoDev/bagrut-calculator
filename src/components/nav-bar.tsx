@@ -3,6 +3,7 @@
 import * as React from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { ThemeToggle } from "./theme-toggle"
 
 export function NavBar() {
     return (
@@ -39,6 +40,9 @@ export function NavBar() {
                             </Link>
                         ))}
                     </div>
+
+                    {/* Theme toggle */}
+                    <ThemeToggle />
 
                     {/* LinkedIn and Mail buttons */}
                     <div className="flex items-center space-x-2">

@@ -32,11 +32,9 @@ const EXTRA_BONUS_SUBJECTS = [SUBJECTS.bible, SUBJECTS.israel, SUBJECTS.tushba, 
 const EMOJIS = ['😊', '🎓', '📚', '🧠', '💡', '🔥', '🌟', '🚀', '💪', '🏆']
 
 function calculateBonus(subject: string, grade: number, units: number): number {
-    console.log('subject name:' ,subject)
     if (units < 4) return 0;
     if (EXTRA_BONUS_SUBJECTS.includes(subject)) {
         if (units === 5) {
-            console.log('special subject')
             if (subject === SUBJECTS.math) return 35;
             return 25
         }
@@ -45,7 +43,6 @@ function calculateBonus(subject: string, grade: number, units: number): number {
             return 12.5
         }
     }
-    console.log('regular subject')
 
     return  units === 4 ? 10 : 20;
 }
@@ -70,7 +67,6 @@ export default function BagrutCalculator() {
         setAdditionalSubjects([...additionalSubjects, {name: '', grade: '', units: '', bonusGrade: ''}])
     }
 
-
     const updateSubject = (index: number, field: string, value: string, isMandatory: boolean) => {
         const updateSubjects = (subjects: Subject[]) => {
             const newSubjects = [...subjects]
@@ -80,7 +76,7 @@ export default function BagrutCalculator() {
                 const grade = Number(newSubjects[index].grade)
                 const units = Number(newSubjects[index].units)
                 if (grade && units) {
-                    const bonus = calculateBonus(subjects[index].name, grade, units)
+                    const bonus = calculateBonus(newSubjects[index].name, grade, units)
                     const bonusGrade = grade + bonus
                     newSubjects[index].bonusGrade = bonusGrade.toFixed(1)
                 }
@@ -114,17 +110,17 @@ export default function BagrutCalculator() {
 
         <div key={index} className="flex space-x-2 mb-2 direction-right">
             <div className="flex-1 rtl:ml-2">
-                <Label htmlFor={`subject-${index}`} className="text-gray-300">מקצוע</Label>
+                <Label htmlFor={`subject-${index}`} className="text-gray-300 dark:text-gray-600">מקצוע</Label>
                 {isMandatory ? (
-                    <Input id={`subject-${index}`} value={subject.name} readOnly className="text-right bg-gray-800 text-white border-gray-700"/>
+                    <Input id={`subject-${index}`} value={subject.name} readOnly className="text-right bg-white dark:bg-gray-800 text-gray-900 dark:text-white border-gray-300 dark:border-gray-700"/>
                 ) : (
                     <Select onValueChange={(value) => updateSubject(index, 'name', value, isMandatory)}>
-                        <SelectTrigger className="bg-gray-800 text-white border-gray-700">
+                        <SelectTrigger className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white border-gray-300 dark:border-gray-700">
                             <SelectValue placeholder="בחר מקצוע"/>
                         </SelectTrigger>
-                        <SelectContent className="bg-gray-800 text-white border-gray-700">
+                        <SelectContent className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white border-gray-300 dark:border-gray-700">
                             {Object.entries(SUBJECTS).map(([key, value]) => (
-                                <SelectItem key={key} value={value} className="hover:bg-gray-700">
+                                <SelectItem key={key} value={value} className="hover:bg-gray-100 dark:hover:bg-gray-700">
                                     {value}
                                 </SelectItem>
                             ))}
@@ -132,64 +128,61 @@ export default function BagrutCalculator() {
                     </Select>
                 )}
             </div>
-
-            <div className="w-24 ">
-                <Label htmlFor={`grade-${index}`} className="text-gray-300">ציון</Label>
+            <div className="w-24">
+                <Label htmlFor={`grade-${index}`} className="text-gray-300 dark:text-gray-600">ציון</Label>
                 <Input
                     id={`grade-${index}`}
                     value={subject.grade}
                     onChange={(e) => updateSubject(index, 'grade', e.target.value, isMandatory)}
                     placeholder="ציון"
                     type="number"
-                    className="bg-gray-800 text-white border-gray-700"
+                    className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white border-gray-300 dark:border-gray-700"
                 />
             </div>
             <div className="w-24">
-                <Label htmlFor={`units-${index}`} className="text-gray-300">יחידות</Label>
+                <Label htmlFor={`units-${index}`} className="text-gray-300 dark:text-gray-600">יחידות</Label>
                 <Input
                     id={`units-${index}`}
                     value={subject.units}
                     onChange={(e) => updateSubject(index, 'units', e.target.value, isMandatory)}
                     placeholder="יחידות"
                     type="number"
-                    className="bg-gray-800 text-white border-gray-700"
+                    className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white border-gray-300 dark:border-gray-700"
                 />
             </div>
-
             <div className="w-28">
-                <Label htmlFor={`bonus-grade-${index}`} className="text-gray-300">ציון עם בונוס</Label>
+                <Label htmlFor={`bonus-grade-${index}`} className="text-gray-300 dark:text-gray-600">ציון עם בונוס</Label>
                 <Input
                     id={`bonus-grade-${index}`}
                     value={subject.bonusGrade}
                     readOnly
                     placeholder="ציון עם בונוס"
-                    className="text-right bg-gray-800 text-white border-gray-700"
+                    className="text-right bg-white dark:bg-gray-800 text-gray-900 dark:text-white border-gray-300 dark:border-gray-700"
                 />
             </div>
-
         </div>
     )
 
     return (
-        <div className="min-h-screen bg-black dark font-sans " style={{ fontFamily: "'Heebo', sans-serif" }}>
+        <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white font-sans" style={{ fontFamily: "'Heebo', sans-serif" }}>
             <main className="pt-24 px-4">
-                <Card className="w-full max-w-2xl mx-auto border-gray-800 bg-gray-900/50 backdrop-blur-xl">
+                <Card className="w-full max-w-2xl mx-auto border-gray-200 dark:border-gray-800 bg-gray-100 dark:bg-gray-900/50 backdrop-blur-xl">
                     <CardHeader>
-                        <CardTitle className="text-white text-2xl ">מחשבון בגרויות</CardTitle>
-                        <CardDescription className="text-gray-400">הזן את הציונים והיחידות לכל מקצוע</CardDescription>
+                        <CardTitle className="text-gray-900 dark:text-white text-2xl">מחשבון בגרויות</CardTitle>
+                        <CardDescription className="text-gray-600 dark:text-gray-400">הזן את הציונים והיחידות לכל מקצוע</CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <h3 className="text-lg font-semibold mb-2 text-white">מקצועות חובה</h3>
+                        <h3 className="text-lg font-semibold mb-2 text-gray-900 dark:text-white">מקצועות חובה</h3>
                         {mandatorySubjects.map((subject, index) => renderSubjectInputs(subject, index, true))}
 
-                        <h3 className="text-lg font-semibold mt-6 mb-2 text-white">מקצועות בחירה</h3>
+                        <h3 className="text-lg font-semibold mt-6 mb-2 text-gray-900 dark:text-white">מקצועות נוספים</h3>
                         {additionalSubjects.map((subject, index) => renderSubjectInputs(subject, index, false))}
 
-                        <Button onClick={addSubject} className="mt-2 bg-gray-800 hover:bg-gray-700 text-white">הוסף מקצוע</Button>
+                        <Button onClick={addSubject} className="mt-2 bg-blue-600 hover:bg-blue-700 text-white">הוסף מקצוע</Button>
                     </CardContent>
                     <CardFooter className="flex justify-between">
-                        <div className="text-white text-lg">{average.emoji} ממוצע: { average.value > 0 ? average.value.toFixed(1) : 0 } </div>
-                        <Button className="bg-gray-800 hover:bg-gray-700 text-white">חשב ממוצע</Button>
+                        <div className="text-gray-900 dark:text-white text-lg">{average.emoji} ממוצע: { average.value > 0 ? average.value.toFixed(1) : 0 } </div>
+                        <Button className="bg-blue-600 hover:bg-blue-700 text-white">חשב ממוצע</Button>
                     </CardFooter>
                 </Card>
             </main>

@@ -55,44 +55,44 @@ export default function AcceptanceCalculator() {
     }
 
     return (
-        <div className="min-h-screen bg-black dark font-sans" style={{ fontFamily: "'Heebo', sans-serif" }}>
+        <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white font-sans" style={{ fontFamily: "'Heebo', sans-serif" }}>
             <main className="pt-24 px-4">
-                <Card className="w-full max-w-2xl mx-auto border-gray-800 bg-gray-900/50 backdrop-blur-xl">
+                <Card className="w-full max-w-2xl mx-auto border-gray-200 dark:border-gray-800 bg-gray-100 dark:bg-gray-900/50 backdrop-blur-xl">
                     <CardHeader>
-                        <CardTitle className="text-white text-2xl">מחשבון סיכויי קבלה</CardTitle>
-                        <CardDescription className="text-gray-400">הזן את הנתונים שלך לחישוב סיכויי הקבלה</CardDescription>
+                        <CardTitle className="text-gray-900 dark:text-white text-2xl">מחשבון סיכויי קבלה</CardTitle>
+                        <CardDescription className="text-gray-600 dark:text-gray-400">הזן את הנתונים שלך לחישוב סיכויי הקבלה</CardDescription>
                     </CardHeader>
                     <CardContent>
                         <div className="space-y-4">
                             <div>
-                                <Label htmlFor="avg-bagrut" className="text-gray-300">ממוצע בגרות</Label>
+                                <Label htmlFor="avg-bagrut" className="text-gray-700 dark:text-gray-300">ממוצע בגרות</Label>
                                 <Input
                                     id="avg-bagrut"
                                     type="number"
                                     value={avgBagrut}
                                     onChange={(e) => setAvgBagrut(e.target.value)}
-                                    className="bg-gray-800 text-white border-gray-700"
+                                    className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white border-gray-300 dark:border-gray-700"
                                 />
                             </div>
                             <div>
-                                <Label htmlFor="avg-pshy" className="text-gray-300">ציון פסיכומטרי</Label>
+                                <Label htmlFor="avg-pshy" className="text-gray-700 dark:text-gray-300">ציון פסיכומטרי</Label>
                                 <Input
                                     id="avg-pshy"
                                     type="number"
                                     value={avgPshy}
                                     onChange={(e) => setAvgPshy(e.target.value)}
-                                    className="bg-gray-800 text-white border-gray-700"
+                                    className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white border-gray-300 dark:border-gray-700"
                                 />
                             </div>
                             <div>
-                                <Label htmlFor="study-type" className="text-gray-300">תחום לימודים</Label>
+                                <Label htmlFor="study-type" className="text-gray-700 dark:text-gray-300">תחום לימודים</Label>
                                 <Select onValueChange={setStudyType}>
-                                    <SelectTrigger id="study-type" className="bg-gray-800 text-white border-gray-700">
+                                    <SelectTrigger id="study-type" className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white border-gray-300 dark:border-gray-700">
                                         <SelectValue placeholder="בחר תחום לימודים" />
                                     </SelectTrigger>
-                                    <SelectContent className="bg-gray-800 text-white border-gray-700">
+                                    <SelectContent className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white border-gray-300 dark:border-gray-700">
                                         {studyData.map((study) => (
-                                            <SelectItem key={study.studyType} value={study.studyType} className="hover:bg-gray-700">
+                                            <SelectItem key={study.studyType} value={study.studyType} className="hover:bg-gray-100 dark:hover:bg-gray-700">
                                                 {study.studyType}
                                             </SelectItem>
                                         ))}
@@ -102,7 +102,7 @@ export default function AcceptanceCalculator() {
                         </div>
                     </CardContent>
                     <CardFooter className="flex justify-between">
-                        <Button onClick={handleCalculate} className="bg-gray-800 hover:bg-gray-700 text-white">
+                        <Button onClick={handleCalculate} className="bg-blue-600 hover:bg-blue-700 text-white">
                             חשב סיכויי קבלה
                         </Button>
                         {acceptanceChance !== null && (
