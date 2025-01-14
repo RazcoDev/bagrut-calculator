@@ -1,9 +1,7 @@
 import './globals.css'
-import { Inter } from 'next/font/google'
 import { ThemeProvider } from "@/components/theme-provider"
 import {NavBar} from "@/components/nav-bar";
 
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
     title: 'Elevate - Bagrut and Acceptance Calculator',
@@ -20,7 +18,7 @@ export default function RootLayout({
         <head>
             <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700&display=swap" rel="stylesheet" />
         </head>
-        <body className={inter.className}>
+        <body>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
             <NavBar/>
             {children}

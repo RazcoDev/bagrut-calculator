@@ -12,7 +12,7 @@ export default function HomePage() {
                     <video autoPlay loop muted
                            width="640" className="justify-self-center rounded-xl mb-10" >
                     <source
-                        src="https://raw.githubusercontent.com/RazcoDev/bagrut-calculator/main/assets/home.mp4"
+                        src="/home.mp4"
                         type="video/mp4"
                     />
                 </video>
