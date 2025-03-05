@@ -38,12 +38,24 @@ export default function AcceptanceCalculator() {
     const [avgBagrut, setAvgBagrut] = useState('')
     const [avgPshy, setAvgPshy] = useState('')
     const [studyType, setStudyType] = useState('')
-    const [acceptanceChance, setAcceptanceChance] = useState<number | null>(null)
+    const [acceptanceChanceString, setAcceptanceChanceString] = useState<string | null>(null)
+
+    function acceptanceChanceToString(chance: number) {
+        //     98%-99% סיכוי גבוה מאוד
+        // 90%-97% סיכוי גבוה
+        // 85%-89% סיכוי בינוני
+        // 85% ומטה סיכוי נמוך
+        if (chance >= 98) return "סיכויים גבוהים מאוד"
+        if (chance >= 90) return "סיכויים גבוהים"
+        if (chance >= 85) return "סיכויים בינוניים"
+        return "סיכויים נמוכים"
+    }
 
     const handleCalculate = () => {
         if (avgBagrut && avgPshy && studyType) {
             const chance = calculateAcceptanceChance(Number(avgBagrut), Number(avgPshy), studyType)
-            setAcceptanceChance(chance)
+            const chanceString = acceptanceChanceToString(chance)
+            setAcceptanceChanceString(chanceString)
         }
     }
 
@@ -98,9 +110,9 @@ export default function AcceptanceCalculator() {
                         <Button onClick={handleCalculate} className="bg-blue-600 hover:bg-blue-700 text-white">
                             חשב סיכויי קבלה
                         </Button>
-                        {acceptanceChance !== null && (
+                        {acceptanceChanceString !== null && (
                             <div className="dark:text-white text text-lg">
-                                סיכויי הקבלה שלך: {acceptanceChance}%
+                                סיכויי הקבלה: {acceptanceChanceString}
                             </div>
                         )}
                     </CardFooter>
